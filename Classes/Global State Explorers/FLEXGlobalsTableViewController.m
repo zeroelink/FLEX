@@ -201,7 +201,7 @@ typedef NS_ENUM(NSUInteger, FLEXGlobalsRow) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePressed:)];
 }
 
@@ -256,7 +256,7 @@ typedef NS_ENUM(NSUInteger, FLEXGlobalsRow) {
     }
 
     cell.textLabel.text = [self titleForRowAtIndexPath:indexPath];
-    
+
     return cell;
 }
 
@@ -266,8 +266,11 @@ typedef NS_ENUM(NSUInteger, FLEXGlobalsRow) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIViewController *viewControllerToPush = [self viewControllerToPushForRowAtIndexPath:indexPath];
-
-    [self.navigationController pushViewController:viewControllerToPush animated:YES];
+    if (!viewControllerToPush) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    } else {
+        [self.navigationController pushViewController:viewControllerToPush animated:YES];
+    }
 }
 
 @end
